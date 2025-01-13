@@ -43,3 +43,10 @@ jobs:
           with:
                 name: frontend-artifact
                 path: ./frontend/dist
+
+    call_cd_workflow:
+      needs: [build_backend, build_frontend]
+      permissions:
+          id-token: write # Require write permission to Fetch an OIDC token (required for federated credential)
+      uses: daxterman/parkndeploy/.github/workflows/CD-release.yml@main
+      secrets: inherit

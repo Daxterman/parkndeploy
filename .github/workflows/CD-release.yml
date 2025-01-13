@@ -1,10 +1,8 @@
 name: CD_release
 
 on:
-    workflow_run:
-        workflows: ["CI_release"]
-        types:
-            - completed
+    workflow_call:
+
 
 env: 
     AZURE_RG_NAME: ${{ vars.PROJECT_NAME }}-rg-${{ vars.AZURE_RESOURCE_IDENTIFIER }}
@@ -83,7 +81,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                 name: frontend-artifact
-                
+
             - name: Login to Azure 
               uses: azure/login@v2
               with:
