@@ -26,7 +26,7 @@ jobs:
               run: dotnet build -c Release --property:PublishDir=publish # Publish the app to the publish folder of the API project
               working-directory: ./backend # specify where to find the solution file
             - name: check if the build is present
-              run: ls -la ./backend/ParkNDeploy.Api
+              run: ls -la publish
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
