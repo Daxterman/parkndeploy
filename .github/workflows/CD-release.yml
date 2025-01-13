@@ -55,7 +55,7 @@ jobs:
 
         steps:
             - name: Download Backend Artifact
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v4
               with:
                   name: backend-artifact
 
@@ -79,6 +79,11 @@ jobs:
         environment: production
 
         steps:
+            - name: Download Frontend Artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: frontend-artifact
+                
             - name: Login to Azure 
               uses: azure/login@v2
               with:
