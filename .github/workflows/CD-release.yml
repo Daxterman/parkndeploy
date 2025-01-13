@@ -21,6 +21,9 @@ jobs:
             staticWebAppName: ${{ steps.bicep_deploy.outputs.staticWebAppName }}
 
         steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
             - name: Login to Azure 
               uses: azure/login@v2
               with:
@@ -38,12 +41,12 @@ jobs:
               id: bicep_deploy
               uses: azure/arm-deploy@v2
               with:
-                    subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-                    region: ${{ secrets.AZURE_REGION }}
-                    template: ./infrastructure/main.bicep
-                    parameters: project=${{ vars.PROJECT_NAME }} location=${{ secrets.AZURE_REGION }} swaLocation=${{ secrets.AZURE_SWA_REGION }} identifier=${{ vars.AZURE_RESOURCE_IDENTIFIER }}
-                    resourceGroupName: ${{ env.AZURE_RG_NAME }}
-                    scope: "resourcegroup"
+                subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+                region: ${{ secrets.AZURE_REGION }}
+                template: ./infrastructure/main.bicep
+                parameters: project=${{ vars.PROJECT_NAME }} location=${{ secrets.AZURE_REGION }} swaLocation=${{ secrets.AZURE_SWA_REGION }} identifier=${{ vars.AZURE_RESOURCE_IDENTIFIER }}
+                resourceGroupName: ${{ env.AZURE_RG_NAME }}
+                scope: "resourcegroup"
 
     deploy_backend:
         runs-on: ubuntu-latest
